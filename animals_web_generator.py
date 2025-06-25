@@ -1,5 +1,5 @@
 import json
-
+import requests
 def load_data(file_path):
   """ Loads a JSON file """
   with open(file_path, "r") as handle:
@@ -40,6 +40,17 @@ def main():
     for animal_obj in data:
         output += serialize_animal(animal_obj)
     generate_animals_html(output)
+
+
+
+
+name = 'fox'
+api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(name)
+response = requests.get(api_url, headers={'X-Api-Key': 'luW0O9X/K73+K1fUBJ0kGw==lkpJau798Isalh8o'})
+if response.status_code == requests.codes.ok:
+    print(response.text)
+else:
+    print("Error:", response.status_code, response.text)
 
 if __name__ == '__main__':
     main()
