@@ -14,7 +14,7 @@ def generate_animals_html(output):
          file.write(updated_html_content)
      print("Animals data has been generated")
 
-def serialize_animal(animal_name,animals_data):
+def serialize_animal(animals_data):
     """ Loops through the animal info and creates outputs for the cards in the HTML page """
     output =''
     if animals_data:
@@ -36,23 +36,26 @@ def serialize_animal(animal_name,animals_data):
     return output
 
 def main():
-    """data = load_data('animals_data.json')
-    output=''
-    for animal_obj in data:
-        output += serialize_animal(animal_obj)
-    generate_animals_html(output)"""
+    animal_name = input('Enter the name of an animal: ')
 
+    api_url = f'https://api.api-ninjas.com/v1/animals?name={animal_name}'
+    response = requests.get(api_url, headers={'X-Api-Key': 'luW0O9X/K73+K1fUBJ0kGw==lkpJau798Isalh8o'})
 
+    if response.status_code == requests.codes.ok:
+        animals_data = response.json()
 
+        if not animals_data:
+            output = f"<h2>The animal \"{animal_name}\" doesn't exist.</h2>"
+            print(f" The animal \"{animal_name}\" doesn't exist.")
+        else:
+            output = ''
+            for animal in animals_data:
+                output += serialize_animal(animal)
 
-animal_name = input('Enter a name of an animal: ')
-api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(animal_name)
-animals_data = requests.get(api_url, headers={'X-Api-Key': 'luW0O9X/K73+K1fUBJ0kGw==lkpJau798Isalh8o'})
-if animals_data.status_code == requests.codes.ok:
-    print(animals_data.text)
-else:
-    print("Error:", animals_data.status_code, animals_data.text)
-output = serialize_animal(animals_data, animal_name)
+        generate_animals_html(output)
+    else:
+        print("Error:", response.status_code, response.text)
+
 if __name__ == '__main__':
     main()
 
