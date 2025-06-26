@@ -10,7 +10,7 @@ def generate_animals_html(output):
     with open('animals.html', 'w') as file:
         file.write(updated_html_content)
 
-    print("✅ animals.html generated successfully")
+    print("animals.html generated successfully")
 
 def serialize_animal(animal):
     """Turns one animal dict into a card"""

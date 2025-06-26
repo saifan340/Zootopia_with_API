@@ -23,4 +23,4 @@ def fetch_data(animal_name):
   if response.status_code == requests.codes.ok:
      return response.json()
   else:
-     print("Error:", response.status_code, response.text)
+     print("Error : ", response.status_code, response.text)
