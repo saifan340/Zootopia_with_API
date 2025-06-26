@@ -14,44 +14,45 @@ def generate_animals_html(output):
          file.write(updated_html_content)
      print("Animals data has been generated")
 
-def serialize_animal(animal_obj):
+def serialize_animal(animal_name,animals_data):
     """ Loops through the animal info and creates outputs for the cards in the HTML page """
     output =''
-    if animal_obj:
+    if animals_data:
+       # for animal in animals_data:
            output +=f'<li class="cards__item">\n'
-           if 'name' in animal_obj:
-               name = animal_obj['name'].upper()
+           if 'name' in animals_data:
+               name = animals_data['name'].upper()
                output += f"<div class=\"card__title\">{name}</div>\n"
            output += f'<p class="card__text">\n'
-           if 'characteristics' in animal_obj and 'diet' in animal_obj['characteristics']:
-               output += f"<strong>Diet:</strong> {animal_obj['characteristics']['diet']}<br/>\n"
-           if 'locations' in animal_obj:
-               locations=animal_obj["locations"]
+           if 'characteristics' in animals_data and 'diet' in animals_data['characteristics']:
+               output += f"<strong>Diet:</strong> {animals_data['characteristics']['diet']}<br/>\n"
+           if 'locations' in animals_data:
+               locations=animals_data["locations"]
                output += f"<strong>Location:</strong> {locations[0]}<br/>\n"
-           if 'characteristics' in animal_obj and 'type' in animal_obj['characteristics']:
-               output += f"<strong>Type:</strong> {animal_obj['characteristics']['type']}<br/>\n"
+           if 'characteristics' in animals_data and 'type' in animals_data['characteristics']:
+               output += f"<strong>Type:</strong> {animals_data['characteristics']['type']}<br/>\n"
            output += '</p>'
            output += '</li>'
     return output
 
 def main():
-    data = load_data('animals_data.json')
+    """data = load_data('animals_data.json')
     output=''
     for animal_obj in data:
         output += serialize_animal(animal_obj)
-    generate_animals_html(output)
+    generate_animals_html(output)"""
 
 
 
 
-name = 'fox'
-api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(name)
-response = requests.get(api_url, headers={'X-Api-Key': 'luW0O9X/K73+K1fUBJ0kGw==lkpJau798Isalh8o'})
-if response.status_code == requests.codes.ok:
-    print(response.text)
+animal_name = input('Enter a name of an animal: ')
+api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(animal_name)
+animals_data = requests.get(api_url, headers={'X-Api-Key': 'luW0O9X/K73+K1fUBJ0kGw==lkpJau798Isalh8o'})
+if animals_data.status_code == requests.codes.ok:
+    print(animals_data.text)
 else:
-    print("Error:", response.status_code, response.text)
-
+    print("Error:", animals_data.status_code, animals_data.text)
+output = serialize_animal(animals_data, animal_name)
 if __name__ == '__main__':
     main()
 
