@@ -1,0 +1,21 @@
+My Zootopia_with_API Project
+A Python project that fetches animal data from the [API Ninjas Animal API](https://api-ninjas.com/api/animals)
+and generates a dynamic HTML website using that data.
+This repository is  a part of my Zootopia_with_API project in codio.
+
+Features
+
+- Fetches real animal info via an API
+- Renders an HTML page with animal cards
+- Uses a `.env` file to securely store API keys
+- Modular structure for clean code
+
+Installation
+To install this project, simply clone the repository and install the dependencies in requirements.txt using pip
+
+Usage
+To use this project, run the following command - animals_web_generator.py.
+
+Contributing
+We welcome contributions! If you'd like to contribute to this project, please follow these guidelines...
+
